@@ -14,4 +14,8 @@
     code            # python数据处理文件
     data            # 数据源
     help            # 帮助文档
-    source          # 公共函数
+    source          # 资源、公共函数等
+
+# test
+
+暂用 jupyter notebook 实现功能

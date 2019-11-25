@@ -1,9 +1,11 @@
 site_name: pyetl_demo
 
 nav:
-  - Home: index.md
-  - about: about.md
+  - Home: 00 index.md
+  - Python: 01 python.md
+  - Azkaban: 02 azkaban.md
   - "部署": 部署.md
   - "公共函数": 公共函数.md
+  - 关于作者: about.md
 
 theme: readthedocs
