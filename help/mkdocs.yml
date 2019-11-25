@@ -1,11 +1,13 @@
 site_name: pyetl_demo
 
 nav:
-  - Home: 00 index.md
+  - 主页: 00 index.md
   - Python: 01 python.md
   - Azkaban: 02 azkaban.md
-  - "部署": 部署.md
-  - "公共函数": 公共函数.md
+  - 安装部署: 03 安装部署.md
+  - 运行测试: 04 运行测试.md
+  - 公共函数: 公共函数.md
+  - 注意事项: 注意事项.md
   - 关于作者: about.md
 
 theme: readthedocs

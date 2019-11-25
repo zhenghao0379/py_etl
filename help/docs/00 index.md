@@ -12,10 +12,11 @@
 
     azkaban         # azkaban调度文件
     code            # python数据处理文件
+    config          # 配置文件
     data            # 数据源
     help            # 帮助文档
     source          # 资源、公共函数等
 
-# test
+# demo test
 
 暂用 jupyter notebook 实现功能
