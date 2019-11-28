@@ -3,7 +3,7 @@
 ## 数据输入
 
 - 数据库：
-- Excel：
+- Excel：pd.read_excel()
 
 ## 数据清洗
 
@@ -11,7 +11,7 @@
 ## 数据输入
 
 - 数据库：
-- Excel：
+- Excel：dataframe.to_excel()
 
 
 
