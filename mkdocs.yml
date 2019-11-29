@@ -2,12 +2,13 @@ site_name: pyetl_demo
 
 nav:
   - 前言: 00 index.md
-  - 安装部署: 03 安装部署.md
-  - 运行测试: 04 运行测试.md
-  - 数据处理: 01 python.md
-  - 执行调度: 02 azkaban.md
+  - 安装部署: 01 安装部署.md
+  - demo: 02 demo.md
+  - 数据处理: 03 数据处理.md
+  - 执行调度: 04 执行调度.md
   - 公共函数: 公共函数.md
   - 注意事项: 注意事项.md
+  - 版本管理: 版本管理.md
   - 关于作者: about.md
 
 theme: readthedocs

@@ -1,1 +1,3 @@
 name,host,port,user,password
+tinydata,192.168.23.3,3306,tinydata,3990240zZ.
+test,192.168.23.3,3306,test,Test123.
