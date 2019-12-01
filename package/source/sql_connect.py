@@ -1,3 +1,5 @@
+import pandas as pd
+import mysql.connector
 
 # Mysql
 # 创建链接

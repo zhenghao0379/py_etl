@@ -1,7 +1,9 @@
 # 百度地图API 从经纬度获取省市区
-AK = "eCMzKQzCMnunc3R9Gt1gGMQsL0R5PqpV"
 
-def get_city_api(AK, lng, lat):
+import requests
+# AK = "eCMzKQzCMnunc3R9Gt1gGMQsL0R5PqpV"
+def get_city_api(lng, lat, *AK):
+    AK = "eCMzKQzCMnunc3R9Gt1gGMQsL0R5PqpV"
     url = "http://api.map.baidu.com/reverse_geocoding/v3/?"
     ak = "ak=" + AK
     output = "&output=json"
@@ -20,9 +22,9 @@ def get_city_api(AK, lng, lat):
             return output
         except Exception as e:
             print("Exception in amp_geocode",e)
-            time.sleep(5)
+            # time.sleep(5)
             return None
     else:
         print("========>", response.status_code)
-        time.sleep(5)
+        # time.sleep(5)
         return None
