@@ -17,10 +17,17 @@ import pandas as pd
 for day in DAYS:
     for rpt_type in RPT_TYPES:
 
-        data = pd.read_sql("select * from film", conn)
+        sql = "select * from {table} where day = '{day}' and rpt_type='{RPT_TYPE}'"
+
+        data = pd.read_sql(sql, conn)
 
         data.to_sql("film",conn1,if_exists="append",index=False)
 
         data.dtypes
 
         data["last_update2"] = pd.to_datetime(data["last_update"], format='%Y-%m-%d %H:%m:%s')
+
+
+from package.source.public_fun import get_city_api
+
+a = get_city_api(23.7162294, 37.9794508)

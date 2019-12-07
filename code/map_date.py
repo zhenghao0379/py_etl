@@ -1,9 +1,10 @@
 # 生成日期
 
-import numpy as np
+
 import pandas as pd
 import datetime as dt
 
+from package.env import *
 from package.source.sql_connect import mysql_engine
 
 # 
@@ -25,7 +26,27 @@ df_date["week_short_name"] = df_index.strftime("%a")
 # 审核周期 上周五到本周四，返回本周日
 df_date["dt_date"] = (df_index + dt.timedelta(3)).shift(0,freq="w").strftime("%F")
 
+df_date["upload_time"] = DATETIME
 
 # 载入数据
-conn = mysql_engine("tinydata","test")
-df_date.to_sql("map_date",conn,if_exists="replace",index=False)
+engine = mysql_engine("tinydata","test")
+
+df_date.to_sql("map_date",engine,if_exists="append",index=False)
+
+# 
+from package.source.sql_connect import mysql_conn
+
+
+
+conn = mysql_conn("tinydata","test")
+cursor = conn.cursor()
+sql = "DELETE FROM map_date"
+
+try:
+    # 执行SQL语句
+    cursor.execute(sql)
+    # 提交到数据库执行
+    conn.commit()
+except:
+    # 发生错误时回滚
+    conn.rollback()

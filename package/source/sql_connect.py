@@ -1,43 +1,73 @@
 import pandas as pd
-import mysql.connector
 import pymysql
 import sqlalchemy
+from package.env import DATETIME
 
+# 定义连接的全局变量
+CONNS = ""
+MYSQL_USER = ""
+CONN = ""
+ENGINE = ""
 
-# Mysql
-# 创建链接
-def mysql_on(name, db_name = "sakila"):
-    # 选择账户
+# 测试环境
+def test():
+    global CONNS
     db = pd.read_csv("config/db.csv")
-    mysql_user = {
-        "host":db.loc[db["name"] == name,"host"].item(),
-        "port":db.loc[db["name"] == name,"port"].item(),
-        "user":db.loc[db["name"] == name,"name"].item(),
-        "password":db.loc[db["name"] == name,"password"].item(),
+    CONNS = db.loc[db['state']=='test']
+    print("it is test env now!")
+# 正式环境
+def dev():
+    global CONNS
+    db = pd.read_csv("config/db.csv")
+    CONNS = db.loc[db['state']=='dev']
+    print("it is dev env now!")
+
+# 选择数据库
+def mysql_on(db_name="test"):
+    global CONNS,MYSQL_USER,CONN,ENGINE
+    MYSQL_USER = {
+        "host":CONNS.loc[CONNS["db_name"] == db_name,"host"].item(),
+        "port":CONNS.loc[CONNS["db_name"] == db_name,"port"].item(),
+        "user":CONNS.loc[CONNS["db_name"] == db_name,"user"].item(),
+        "password":CONNS.loc[CONNS["db_name"] == db_name,"password"].item(),
+        "db_name":db_name
     }
-    print(mysql_user)
-    print(db_name)
-    # 选择数据库
-    conn = mysql.connector.connect(
+    mysql_user = MYSQL_USER
+    # CONN
+    CONN = pymysql.connect(
         host=mysql_user["host"],
         user=mysql_user["user"],
         passwd=mysql_user["password"],
-        database=db_name
+        database=db_name,
+        charset='utf8'
     )
-    return conn
-
-def mysql_engine(name, db_name="sakila"):
-    # 选择账户
-    db = pd.read_csv("config/db.csv")
-    mysql_user = {
-        "host":db.loc[db["name"] == name,"host"].item(),
-        "port":db.loc[db["name"] == name,"port"].item(),
-        "user":db.loc[db["name"] == name,"name"].item(),
-        "password":db.loc[db["name"] == name,"password"].item(),
-    }
-    print(mysql_user)
+    print(CONN)
+    # ENGINE
     url = "mysql+pymysql://"+ str(mysql_user["user"]) +":"+ str(mysql_user["password"]) +"@"+ str(mysql_user["host"])+":"+ str(mysql_user["port"]) +"/"+ db_name + "?charset=utf8"
     print(url)
-    engine = sqlalchemy.create_engine(url,echo=False,encoding='utf-8')
+    ENGINE = sqlalchemy.create_engine(url,echo=False,encoding='utf-8')
+    print(ENGINE)
 
-    return engine
+
+
+# 获取数据
+def mysql_download(table_name,sql,day,rpt_type):
+    global CONN
+    sql = "select * from where day = {day} and rpt_type = {rpt_type}"
+
+    df_data = pd.read_sql(sql,CONN)
+
+    return df_data
+
+
+# 载入数据
+def mysql_upload(df,talbe_name,conn,if_exists="append"):
+
+    if (if_exists == "replace"):
+        # 先清空表
+
+        df.to_sql(talbe_name,conn,if_exists="append")
+    else:
+        df.to_sql(talbe_name,conn,if_exists="append")
+
+    return print("success")
