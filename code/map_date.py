@@ -5,7 +5,7 @@ import pandas as pd
 import datetime as dt
 
 from package.env import *
-from package.source.sql_connect import mysql_engine
+from package.source.sql_connect import *
 
 # 
 df_index = pd.date_range(dt.date(2010,1,1),dt.date(2030,1,1))
@@ -29,16 +29,12 @@ df_date["dt_date"] = (df_index + dt.timedelta(3)).shift(0,freq="w").strftime("%F
 df_date["upload_time"] = DATETIME
 
 # 载入数据
-engine = mysql_engine("tinydata","test")
+dev()
+conn, engine = mysql_on("test")
 
-df_date.to_sql("map_date",engine,if_exists="append",index=False)
+
 
 # 
-from package.source.sql_connect import mysql_conn
-
-
-
-conn = mysql_conn("tinydata","test")
 cursor = conn.cursor()
 sql = "DELETE FROM map_date"
 
@@ -50,3 +46,5 @@ try:
 except:
     # 发生错误时回滚
     conn.rollback()
+
+df_date.to_sql("map_date",engine,if_exists="append",index=False)

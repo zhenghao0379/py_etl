@@ -5,9 +5,6 @@ from package.env import DATETIME
 
 # 定义连接的全局变量
 CONNS = ""
-MYSQL_USER = ""
-CONN = ""
-ENGINE = ""
 
 # 测试环境
 def test():
@@ -23,8 +20,8 @@ def dev():
     print("it is dev env now!")
 
 # 选择数据库
-def mysql_on(db_name="test"):
-    global CONNS,MYSQL_USER,CONN,ENGINE
+def mysql_on(db_name):
+    global CONNS
     MYSQL_USER = {
         "host":CONNS.loc[CONNS["db_name"] == db_name,"host"].item(),
         "port":CONNS.loc[CONNS["db_name"] == db_name,"port"].item(),
@@ -33,21 +30,22 @@ def mysql_on(db_name="test"):
         "db_name":db_name
     }
     mysql_user = MYSQL_USER
-    # CONN
-    CONN = pymysql.connect(
+    # conn
+    conn = pymysql.connect(
         host=mysql_user["host"],
         user=mysql_user["user"],
         passwd=mysql_user["password"],
         database=db_name,
         charset='utf8'
     )
-    print(CONN)
-    # ENGINE
+    print(conn)
+    # engine
     url = "mysql+pymysql://"+ str(mysql_user["user"]) +":"+ str(mysql_user["password"]) +"@"+ str(mysql_user["host"])+":"+ str(mysql_user["port"]) +"/"+ db_name + "?charset=utf8"
     print(url)
-    ENGINE = sqlalchemy.create_engine(url,echo=False,encoding='utf-8')
-    print(ENGINE)
+    engine = sqlalchemy.create_engine(url,echo=False,encoding='utf-8')
+    print(engine)
 
+    return conn, engine
 
 
 # 获取数据
@@ -71,3 +69,5 @@ def mysql_upload(df,talbe_name,conn,if_exists="append"):
         df.to_sql(talbe_name,conn,if_exists="append")
 
     return print("success")
+
+
