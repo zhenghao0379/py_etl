@@ -27,3 +27,6 @@ for day in DAYS:
         # data.dtypes
 
         # data["last_update2"] = pd.to_datetime(data["last_update"], format='%Y-%m-%d %H:%m:%s')
+
+a = "R"
+a == "R" or "r"
