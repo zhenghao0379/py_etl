@@ -22,14 +22,14 @@ def dev():
 # 选择数据库
 def mysql_on(db_name):
     global CONNS,MYSQL_USER
-    MYSQL_USER = {
+    mysql_user = {
         "host":CONNS.loc[CONNS["db_name"] == db_name,"host"].item(),
         "port":CONNS.loc[CONNS["db_name"] == db_name,"port"].item(),
         "user":CONNS.loc[CONNS["db_name"] == db_name,"user"].item(),
         "password":CONNS.loc[CONNS["db_name"] == db_name,"password"].item(),
         "db_name":db_name
     }
-    mysql_user = MYSQL_USER
+    MYSQL_USER = mysql_user
     # conn
     conn = pymysql.connect(
         host=mysql_user["host"],
@@ -62,7 +62,8 @@ def mysql_upload(df,table_name,conn,engine,type,*day):
 
     # 判断table_name 是否在数据库中
     table_names = pd.read_sql("select table_name from information_schema.tables WHERE table_schema = '{db_name}'".format_map(vars()),engine)["table_name"]
-    if table_name in table_names:
+    print(table_names)
+    if table_name in table_names.values:
         pass
     else :
         return print("ERROR! {table_name} not in {db_name}.".format_map(vars()))
@@ -71,7 +72,7 @@ def mysql_upload(df,table_name,conn,engine,type,*day):
     if (type == "replace" or "r"):
         # 替换：为了保留源数据库字段格式
         # 先清空表
-        sql = "DELETE FROM {table_name} where day='{day}'".format_map(vars())
+        sql = "DELETE FROM {table_name}".format_map(vars())
         cursor = conn.cursor()
         try:
             # 执行SQL语句
@@ -102,3 +103,12 @@ def mysql_upload(df,table_name,conn,engine,type,*day):
         print("need type value")
 
     return print("upload success !")
+
+
+def mysql_close(conn, engine):
+    conn.close()
+    engine.dispose()
+    print("the connector has been closed!")
+
+def kill_all_connector():
+    pass
