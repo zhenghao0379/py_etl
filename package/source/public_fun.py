@@ -2,7 +2,7 @@
 
 import requests
 # AK = "eCMzKQzCMnunc3R9Gt1gGMQsL0R5PqpV"
-def get_city_api(lng, lat, *AK):
+def get_address_api(lng, lat, *AK):
     AK = "eCMzKQzCMnunc3R9Gt1gGMQsL0R5PqpV"
     url = "http://api.map.baidu.com/reverse_geocoding/v3/?"
     ak = "ak=" + AK
