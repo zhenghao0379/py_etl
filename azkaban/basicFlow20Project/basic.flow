@@ -1,7 +1,3 @@
----
-config:
-  failure.emails: noreply@foo.com
-
 nodes:
   - name: jobC
     type: noop

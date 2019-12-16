@@ -1,6 +1,6 @@
 ---
-config:
-  failure.emails: noreply@foo.com
+# config:
+#   failure.emails: noreply@foo.com
 
 nodes:
   - name: jobC
