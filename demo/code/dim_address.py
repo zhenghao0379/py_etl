@@ -19,11 +19,11 @@ df_address = pd.read_sql("select * from address", engine).drop(['last_update'],a
 df_city = pd.read_sql("select * from city", engine).drop(['last_update'],axis=1)
 df_country = pd.read_sql("select * from country", engine).drop(['last_update'],axis=1)
 
+# 数据处理
 df_address["location_text"] = df_address["location"]
 df_address["lat"] = df_address["location_text"].
 df_address["lng"] = df_address["location_text"].
 
-# 载入数据
 df_data = df_address.merge(df_city, how="left", on="city_id")
 df_data_2 = df_data.merge(df_country, how="left", on="country_id")
 
