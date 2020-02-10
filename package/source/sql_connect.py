@@ -9,16 +9,13 @@ MYSQL_USER = ""
 
 # 环境切换
 # 测试环境
-
-
 def test():
     global CONNS
     db = pd.read_csv("config/db.csv")
     CONNS = db.loc[db['state'] == 'test']
     print("it is test env now!")
+
 # 正式环境
-
-
 def dev():
     global CONNS
     db = pd.read_csv("config/db.csv")

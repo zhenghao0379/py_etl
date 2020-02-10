@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import datetime
+import calendar
 
 # 百度地图API 从经纬度获取省市区
 import requests
@@ -34,21 +35,24 @@ def get_address_api(lng, lat, *AK):
 
 def get_day_start_end(day, rpt_type):
     day = datetime.datetime.strptime(day, "%Y-%m-%d")
+    day_year = day.year
+    day_month = day.month
+    day_day = day.day
+    day_weekday, day_month_day = calendar.monthrange(day_year, day_month)
+
     start = {
         "D":day.strftime("%F"),
-        "W":(day+pd.tseries.offsets.MonthBegin).strftime("%F"),
-        "M":day.shift(0,freq="m").strftime("%F"),
-        "Y":day.shift(0,freq="y").strftime("%F"),
+        "W":(day - datetime.timedelta(days=day_weekday)).strftime("%F"),
+        "M":datetime.datetime(day_year, day_month, 1).strftime("%F"),
     }.get(rpt_type,"error")
 
     end = {
         "D":day.strftime("%F"),
-        "W":day.shift(0,freq="w").strftime("%F"),
-        "M":day.shift(0,freq="m").strftime("%F"),
-        "Y":day.shift(0,freq="y").strftime("%F"),
+        "W":(day + datetime.timedelta(days=6 - day_weekday)).strftime("%F"),
+        "M":datetime.datetime(day_year, day_month, day_month_day).strftime("%F"),
     }.get(rpt_type,"error")
     return start, end
 
-start, end = get_day_start_end("2019-12-12", "D")
+start, end = get_day_start_end("2019-12-12", "M")
 print(start)
 print(end)
