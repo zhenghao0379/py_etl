@@ -1,5 +1,0 @@
-state,host,port,user,password,db_name
-dev,192.168.23.3,3306,tinydata,3990240zZ.,sakila
-dev,192.168.23.3,3306,tinydata,3990240zZ.,test
-test,192.168.23.3,3306,tinydata,3990240zZ.,sakila
-test,192.168.23.3,3306,tinydata,3990240zZ.,test

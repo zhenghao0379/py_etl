@@ -27,3 +27,12 @@ for day in DAYS:
         # data.dtypes
 
         # data["last_update2"] = pd.to_datetime(data["last_update"], format='%Y-%m-%d %H:%m:%s')
+
+        sql = ''
+
+        df = get_
+
+        table = document.add_table(rows=(data.shape[0]), cols=data.shape[1])  # First row are table headers!
+            for i, column in enumerate(data) :
+                for row in range(data.shape[0]) :
+                    table.cell(row, i).text = str(data[column][row])

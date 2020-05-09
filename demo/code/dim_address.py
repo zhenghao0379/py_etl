@@ -1,14 +1,16 @@
 # 定位到工作根目录
+# import sys
+# from os.path import abspath, join, dirname
+# sys.path.insert(0, join(abspath(dirname(__file__)), '../../'))
+import os
 import sys
-from os.path import abspath, join, dirname
-sys.path.insert(0, join(abspath(dirname(__file__)), '../../'))
+sys.path.append(os.getcwd())
 
 # 载入工具包和自定义工具包
 import numpy as np
 import pandas as pd
 
-from package.env import *
-from package.source.sql_connect import *
+from package import *
 
 # 获取连接
 dev()
