@@ -25,6 +25,7 @@ parser.add_argument('-D', '--DAYS', help='运行日期，默认为昨天')
 parser.add_argument('-S', '--START', help='起始日期，默认为昨天')
 parser.add_argument('-E', '--END', help='终止日期，默认为昨天')
 parser.add_argument('-T', '--RPT_TYPE', help='循环周期类型')
+parser.add_argument('-M', '--MAIL', help='邮件接收者')
 
 args = parser.parse_args()
 
