@@ -4,4 +4,4 @@ sys.path.append(os.getcwd())
 
 from package import *
 
-config.get('email-stmp', 'host')
+print('hello world, hello python, hello azkaban')

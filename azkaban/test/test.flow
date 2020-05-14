@@ -1,0 +1,12 @@
+
+
+nodes:
+  - name: root
+    type: noop
+
+  - name: test
+    type: command
+    depend: root
+    command: python ${ws}/demo/code/test.py
+
+    
