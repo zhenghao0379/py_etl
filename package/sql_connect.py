@@ -1,8 +1,8 @@
 import pandas as pd
 import pymysql
 import sqlalchemy
-from package.env import DATE, DATETIME, DAYS, RPT_TYPES
-
+from package.env import DATE, DATETIME
+from .pass_parameters import DAYS, RPT_TYPES, START, END
 # 定义连接的全局变量
 CONNS = ""
 MYSQL_USER = ""

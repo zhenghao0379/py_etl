@@ -1,3 +1,5 @@
+# 配置文件获取
+
 import configparser
 # 生成ConfigParser对象
 config = configparser.ConfigParser()
