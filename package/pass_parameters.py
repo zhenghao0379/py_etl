@@ -19,38 +19,38 @@ def get_DAYS(start, end):
 
     return days
 
-parser = argparse.ArgumentParser(description='Short sample app')
+PARSER = argparse.ArgumentParser(description='Short sample app')
 
-parser.add_argument('-D', '--DAYS', help='运行日期，默认为昨天')
-parser.add_argument('-S', '--START', help='起始日期，默认为昨天')
-parser.add_argument('-E', '--END', help='终止日期，默认为昨天')
-parser.add_argument('-T', '--RPT_TYPES', help='循环周期类型')
-parser.add_argument('-M', '--MAIL', help='邮件接收者')
+PARSER.add_argument('-D', '--DAYS', help='运行日期，默认为昨天')
+PARSER.add_argument('-S', '--START', help='起始日期，默认为昨天')
+PARSER.add_argument('-E', '--END', help='终止日期，默认为昨天')
+PARSER.add_argument('-T', '--RPT_TYPES', help='循环周期类型')
+PARSER.add_argument('-M', '--MAIL', help='邮件接收者')
 
-args = parser.parse_args()
+PARSER_ARGS = PARSER.parse_args()
 
 yesterday = (datetime.datetime.today() + datetime.timedelta(days=-1)).strftime("%F")
 
-if args.DAYS:
-    DAYS = args.DAYS.split(',')
+if PARSER_ARGS.DAYS:
+    DAYS = PARSER_ARGS.DAYS.split(',')
 else:
     DAYS = [yesterday]
 
-if args.START:
-    START = args.START
+if PARSER_ARGS.START:
+    START = PARSER_ARGS.START
 else:
     START = yesterday
 
-if args.END:
-    END = args.START
+if PARSER_ARGS.END:
+    END = PARSER_ARGS.START
 else:
     END = yesterday
 
 if START < min(DAYS):
     DAYS = get_DAYS(START, END)
 
-if args.RPT_TYPES:
-    RPT_TYPES = list(args.RPT_TYPES)
+if PARSER_ARGS.RPT_TYPES:
+    RPT_TYPES = PARSER_ARGS.RPT_TYPES.split(',')
 else:
     RPT_TYPES = ['D']
 
