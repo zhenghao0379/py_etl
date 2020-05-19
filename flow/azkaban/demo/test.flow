@@ -2,31 +2,51 @@
 config:
   ws: cd /data/demo/
   ws2: cd /data/demo/ && 
-  DAYS: ${-D}
-  START: ${-S}
-  END: ${-E}
-  RPT_TYPE: ${-T}
-  PY_P: bash ./write_to_python_pros.sh 
+  ws3: null
+  S1: ~
+  S2: null
+  S3: 
 
 nodes:
   - name: root
     type: command
     config:
       command: echo start root at && date
-
-  - name: test1
+  
+  - name: S
     type: command
-    dependsOn: 
+    dependsOn:
       - root
     config:
-      command: echo "flow parameters:${S1}"
+      command: echo 
+
+  - name: S1
+    type: command
+    dependsOn: 
+      - S
+    config:
+      command: echo "flow parameters:S1-${S1}"
+
+  - name: S2
+    type: command
+    dependsOn: 
+      - S
+    config:
+      command: echo "flow parameters:S2-${S2}"
+
+  - name: S3
+    type: command
+    dependsOn: 
+      - S
+    config:
+      command: echo "flow parameters:S3-${S3}"
 
   - name: test2
     type: command
     dependsOn: 
-      - root
+      - S
     config:
-      command: echo "global parameters:${ws}"
+      command: echo "global parameters:ws-${ws}"
   
   - name: python1
     type: command
@@ -35,7 +55,7 @@ nodes:
     config:
       command: python3 /data/demo/test.py
 
-  - name: python1
+  - name: python1-1
     type: command
     dependsOn: 
       - root
@@ -62,3 +82,17 @@ nodes:
       - root
     config:
       command: ${ws2} python3 test.py
+
+  - name: py_etl
+    type: command
+    dependsOn: 
+      - root
+    config:
+      command: 
+
+  - name: py_etl_demo1
+    type: command
+    dependsOn:
+      - py_etl
+    config:
+      command: cd /data/py_etl/demo/code/ && python3 test1.py

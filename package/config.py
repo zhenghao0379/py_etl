@@ -16,4 +16,8 @@ class CONFIG:
     def get_value(self, section, item):
         return self.config.get(section, item)
 
+    def get_value(self, section, item):
+        return self.config.get(section, item)
+
+
 CONFIG = CONFIG()

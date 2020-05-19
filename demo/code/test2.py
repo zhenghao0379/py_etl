@@ -15,7 +15,7 @@ for day in DAYS:
 
         sql_day = f"select * from {table_name} where day = {day}"
         print(sql_day)
-        host = CONFIG.get_value_int('mysql', 'host')
+        host = CONFIG.get_value('mysql', 'host')
         print('192.168.1.1')
         print(host)
         print(type(host))
